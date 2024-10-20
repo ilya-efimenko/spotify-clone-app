@@ -1,35 +1,36 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
-import { ApiService } from '../services/api/api.service';
+import { AuthService } from '../services/auth/auth.service';
 
 export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  const api = inject(ApiService);
+  const authService = inject(AuthService);
 
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
+  const handleAuthError = (error: HttpErrorResponse) => {
+    const params = new URLSearchParams(window.location.search);
+    const authCode = params.get('code');
 
-  return next(req).pipe(
-    catchError((err: unknown) => {
-      console.log(err);
-      if (err instanceof HttpErrorResponse) {
-        if (err.status === 401) {
-          console.error('Unauthorized request:', err);
+    if (error.status === 401) {
+      console.error('Unauthorized request:', error);
 
-          if (!code) {
-            api.requestUserAuth();
-          } else {
-            api.getToken(code).subscribe();
-          }
-
-        } else {
-          console.error('HTTP error:', err);
-        }
+      if (!authCode) {
+        authService.requestUserAuth();
       } else {
-        console.error('An error occurred:', err);
+        authService.getToken(authCode);
       }
+    } else {
+      console.error('HTTP error:', error);
+    }
+  };
 
-      return throwError(() => err); 
-    })
-  );
+  const handleError = (err: unknown) => {
+    if (err instanceof HttpErrorResponse) {
+      handleAuthError(err);
+    } else {
+      console.error('An unexpected error occurred:', err);
+    }
+    return throwError(() => err);
+  };
+
+  return next(req).pipe(catchError(handleError));
 };

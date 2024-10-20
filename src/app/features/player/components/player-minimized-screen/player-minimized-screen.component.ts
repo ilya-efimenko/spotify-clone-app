@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayerStore, ScreenMode } from '../../store';
 
@@ -10,8 +10,7 @@ import { PlayerStore, ScreenMode } from '../../store';
   styleUrl: './player-minimized-screen.component.scss',
 })
 export class PlayerMinimizedScreenComponent {
-
-  constructor(private readonly store: PlayerStore) {}
+  private readonly store = inject(PlayerStore);
 
   public setFullScreen(): void {
     this.store.updateScreenMode(ScreenMode.FULL);

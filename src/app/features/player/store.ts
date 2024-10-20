@@ -1,6 +1,8 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { ComponentStore } from "@ngrx/component-store";
-import { Observable } from "rxjs";
+import { catchError, EMPTY, exhaustMap, Observable, tap } from "rxjs";
+import { ApiService } from '../../core/services/api/api.service';
+import { HttpErrorResponse } from "@angular/common/http";
 
 export enum ScreenMode {
   FULL,
@@ -17,6 +19,7 @@ export interface UiState {
 
 @Injectable()
 export class PlayerStore extends ComponentStore<PlayerState> {
+  private readonly api = inject(ApiService);
   
   constructor() {
     super({ui: {screenMode: ScreenMode.MINIMIZED}});
@@ -38,4 +41,18 @@ export class PlayerStore extends ComponentStore<PlayerState> {
       screenMode
     }
   }));
+
+  /** EFFECTS ----------------------------------------------------------- */
+  readonly fetchPlayer = this.effect<void>(
+    (trigger$) => trigger$.pipe(
+      exhaustMap(() =>
+        this.api.getRequest('me/player').pipe(
+          tap({
+            next: (data) => console.log(data),
+            error: (error: HttpErrorResponse) => console.log(error),
+          })
+        )
+      )
+    )
+  );
 }
