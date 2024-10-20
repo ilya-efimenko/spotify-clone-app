@@ -1,1 +1,7 @@
-<p>player works!</p>
+<div class="player">
+  @if ((screenMode$ | async) === ScreenMode.FULL) {
+    <app-player-full-screen></app-player-full-screen>
+  } @else {
+    <app-player-minimized-screen></app-player-minimized-screen>
+  }
+</div>
