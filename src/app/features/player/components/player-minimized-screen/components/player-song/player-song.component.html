@@ -1,0 +1,9 @@
+<div class="player-song">
+  <div class="player-song--cover"></div>
+  <img [src]="song()?.image" alt="Spotify song preview">
+  <a href="#" class="player-song__link">
+    <span class="player-song__link--song-name">{{song()?.name}}</span>
+    <span class="player-song__link--artist-name">{{song()?.artistName}}</span>
+  </a>
+  <button class="player-song--add-to-fav-btn">+</button>
+</div>

@@ -21,11 +21,10 @@ export class AuthService {
   }
 
   public getToken(code: string): void {
-    const verifier = localStorage.getItem("verifier");
+    const verifier = localStorage.getItem('verifier');
   
     if (!code || !verifier) {
-      console.error('Authorization code or code verifier is missing');
-      return;
+      throw new Error('Authorization code or code verifier is missing');
     }
     
     this.api.postAuthRequest(
@@ -33,11 +32,14 @@ export class AuthService {
       this.setTokenRequestBody(code, verifier)
     ).subscribe({
       next: (responseData: AccessToken) => {
-        const { access_token } = responseData;
-        localStorage.setItem('access_token', access_token);
+        const { access_token: accessToken } = responseData;
+        localStorage.setItem('access_token', accessToken);
       },
-      error: (error) => {
-        console.error('Error retrieving access token:', error);
+      error: () => {
+        localStorage.removeItem('verifier');
+        localStorage.removeItem('access_token');
+        document.location = 'http://localhost:4200/';
+        this.requestUserAuth();
       }
     });
   }
@@ -66,23 +68,23 @@ export class AuthService {
 
   private setUserAuthUrlParams(codeChallenge: string): string {
     const params = new URLSearchParams();
-    params.append("client_id", this.clientId);
-    params.append("response_type", "code");
-    params.append("redirect_uri", this.redirectUri);
-    params.append("scope", "user-read-private user-read-email user-read-playback-state user-library-read");
-    params.append("code_challenge_method", "S256");
-    params.append("code_challenge", codeChallenge);
+    params.append('client_id', this.clientId);
+    params.append('response_type', 'code');
+    params.append('redirect_uri', this.redirectUri);
+    params.append('scope', 'user-read-private user-read-email user-read-playback-state user-library-read');
+    params.append('code_challenge_method', 'S256');
+    params.append('code_challenge', codeChallenge);
 
     return params.toString();
   }
 
   private setTokenRequestBody(code: string, verifier: string): string {
     const body = new URLSearchParams();
-    body.append("client_id", this.clientId);
-    body.append("grant_type", "authorization_code");
-    body.append("code", code);
-    body.append("redirect_uri", this.redirectUri);
-    body.append("code_verifier", verifier);
+    body.append('client_id', this.clientId);
+    body.append('grant_type', 'authorization_code');
+    body.append('code', code);
+    body.append('redirect_uri', this.redirectUri);
+    body.append('code_verifier', verifier);
 
     return body.toString();
   }

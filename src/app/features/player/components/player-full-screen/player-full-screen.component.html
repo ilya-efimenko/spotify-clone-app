@@ -1,2 +1,9 @@
-<p>player-full-screen works!</p>
-<button (click)="setMinimizedScreen()">Set Minimized Screen</button>
+<div
+  class="player-full-screen"
+  [style.background-image]="'url(' + (artist$ | async)?.imageUrls?.[0] + ')'"
+>
+</div>
+
+<div class="player-full-screen__backdrop">
+  <button (click)="setMinimizedScreen()">Set Minimized Screen</button>
+</div>

@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     );
   });
 
-  it(`should have as title 'spotify-clone-app'`, () => {
+  it('should have as title \'spotify-clone-app\'', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app.title).toEqual('spotify-clone-app');

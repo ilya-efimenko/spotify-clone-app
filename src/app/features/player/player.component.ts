@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PlayerStore, ScreenMode } from './store';
 import { Observable } from 'rxjs';
@@ -13,11 +13,15 @@ import { PlayerMinimizedScreenComponent } from './components/player-minimized-sc
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
 })
-export class PlayerComponent {
+export class PlayerComponent implements OnInit {
   public get screenMode$(): Observable<ScreenMode> {
     return this.store.screenMode$;
   }
   public readonly ScreenMode = ScreenMode;
 
   private readonly store = inject(PlayerStore);
+
+  public ngOnInit(): void {
+    this.store.fetchPlayer();
+  }
 }

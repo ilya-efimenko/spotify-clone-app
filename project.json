@@ -73,8 +73,10 @@
     },
     "lint": {
       "executor": "@nx/eslint:lint",
+      "extends": ["plugin:@nrwl/nx/angular", "prettier"],
       "options": {
-        "lintFilePatterns": ["./src"]
+        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html", "src/**/*.scss"],
+        "fix": true
       }
     },
     "test": {

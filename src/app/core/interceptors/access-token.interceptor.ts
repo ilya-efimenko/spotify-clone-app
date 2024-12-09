@@ -11,15 +11,13 @@ export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
     const authCode = params.get('code');
 
     if (error.status === 401) {
-      console.error('Unauthorized request:', error);
-
       if (!authCode) {
         authService.requestUserAuth();
       } else {
         authService.getToken(authCode);
       }
     } else {
-      console.error('HTTP error:', error);
+      throw new Error(`Unauthorized request: ${error}`);
     }
   };
 
@@ -27,7 +25,7 @@ export const accessTokenInterceptor: HttpInterceptorFn = (req, next) => {
     if (err instanceof HttpErrorResponse) {
       handleAuthError(err);
     } else {
-      console.error('An unexpected error occurred:', err);
+      throw new Error(`An unexpected error occurred: ${err}`);
     }
     return throwError(() => err);
   };

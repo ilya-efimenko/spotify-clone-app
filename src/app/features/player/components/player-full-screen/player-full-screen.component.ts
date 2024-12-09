@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PlayerStore, ScreenMode } from '../../store';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { Artist, PlayerStore, ScreenMode } from '../../store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-player-full-screen',
@@ -9,10 +10,28 @@ import { PlayerStore, ScreenMode } from '../../store';
   templateUrl: './player-full-screen.component.html',
   styleUrl: './player-full-screen.component.scss',
 })
-export class PlayerFullScreenComponent {
+export class PlayerFullScreenComponent implements OnInit {
   private readonly store = inject(PlayerStore);
+  private readonly document = inject(DOCUMENT);
 
-  public setMinimizedScreen(): void {
+  public get artist$(): Observable<Artist> {
+    return this.store.artist$;
+  }
+
+  public async ngOnInit(): Promise<void> {
+    const elem = this.document.documentElement;
+
+    if (elem.requestFullscreen) {
+      await elem.requestFullscreen();
+    }
+
+    this.store.fetchArtist();
+  }
+
+  public async setMinimizedScreen(): Promise<void> {
+    if (document?.exitFullscreen) {
+      await document.exitFullscreen();
+    }
     this.store.updateScreenMode(ScreenMode.MINIMIZED);
   }
 }
