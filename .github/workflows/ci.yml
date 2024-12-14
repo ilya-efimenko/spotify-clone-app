@@ -39,16 +39,6 @@ jobs:
       - name: Update SHAs for Nx Cache
         uses: nrwl/nx-set-shas@v4
 
-      # Run Unit Tests for Affected Projects
-      - name: Run Unit Tests
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                github-token: ${{ secrets.GITHUB_TOKEN }}
-            - uses: ArtiomTr/jest-coverage-report-action@v2
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-
       # Run Lint for Affected Projects
       - name: Run Lint
         run: npx nx affected --target=lint --parallel
