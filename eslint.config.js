@@ -9,21 +9,17 @@ module.exports = [
   },
   {
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx'],
-    extends: [
-      'eslint:recommended',
-      "prettier"
-    ],
     rules: {
-      'semi': ['error', 'always'], // Enforce semicolons at the end of statements
-      'quotes': ['error', 'single'], // Enforce single quotes for strings
-      'indent': ['error', 2], // Enforce 2-space indentation
+      semi: ['error', 'always'], // Enforce semicolons at the end of statements
+      quotes: ['error', 'single'], // Enforce single quotes for strings
+      indent: ['error', 2], // Enforce 2-space indentation
       'no-unused-vars': ['warn'], // Warn about unused variables
-      'eqeqeq': ['error', 'always'], // Enforce strict equality (===)
+      eqeqeq: ['error', 'always'], // Enforce strict equality (===)
       'no-console': ['warn'], // Warn about console.log usage
       'no-debugger': ['warn'], // Warn about debugger statements
       'brace-style': ['error', '1tbs'], // Enforce one true brace style
       'max-len': ['error', { code: 120 }], // Enforce a maximum line length
-      'camelcase': ['error', { properties: 'always' }], // Enforce camelCase naming convention
+      camelcase: ['error', { properties: 'always' }], // Enforce camelCase naming convention
       'prefer-const': ['error'], // Prefer `const` over `let` when variables are not reassigned
     },
   },

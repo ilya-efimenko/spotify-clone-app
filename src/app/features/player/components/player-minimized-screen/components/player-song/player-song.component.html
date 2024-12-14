@@ -1,9 +1,16 @@
-<div class="player-song">
-  <div class="player-song--cover"></div>
-  <img [src]="song()?.image" alt="Spotify song preview">
-  <a href="#" class="player-song__link">
-    <span class="player-song__link--song-name">{{song()?.name}}</span>
-    <span class="player-song__link--artist-name">{{song()?.artistName}}</span>
+<div class="player-song flex flex-row justify-between items-center">
+  <img
+    class="player-song--cover rounded-sm mr-3 min-h-10"
+    width="56"
+    height="56"
+    [src]="song()?.image ? song()?.image : 'assets/empty-song-placeholder.jpg'"
+    alt="Spotify song preview"
+  />
+  <a href="#" class="player-song__link flex flex-col text-white">
+    <span class="player-song__link--song-name text-sm">{{ song()?.name ? song()?.name : 'Unknown' }}</span>
+    <span class="player-song__link--artist-name text-xs text-gray-400">{{
+      song()?.artistName ? song()?.artistName : 'Unknown'
+    }}</span>
   </a>
   <button class="player-song--add-to-fav-btn">+</button>
 </div>

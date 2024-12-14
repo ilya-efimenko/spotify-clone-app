@@ -9,6 +9,5 @@ import { ActionButtonListComponent } from './components/action-button-list/actio
   standalone: true,
   imports: [CommonModule, SearchComponent, LogoComponent, ActionButtonListComponent],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
 })
 export class HeaderComponent {}

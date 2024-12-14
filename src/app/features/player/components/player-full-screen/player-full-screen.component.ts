@@ -8,7 +8,6 @@ import { Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './player-full-screen.component.html',
-  styleUrl: './player-full-screen.component.scss',
 })
 export class PlayerFullScreenComponent implements OnInit {
   private readonly store = inject(PlayerStore);

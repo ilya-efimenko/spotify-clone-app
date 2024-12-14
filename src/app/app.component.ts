@@ -7,7 +7,6 @@ import { ShellComponent } from './core/shell.component';
   imports: [RouterModule, ShellComponent],
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   title = 'spotify-clone-app';

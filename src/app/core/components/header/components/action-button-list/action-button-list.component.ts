@@ -6,6 +6,5 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './action-button-list.component.html',
-  styleUrl: './action-button-list.component.scss',
 })
 export class ActionButtonListComponent {}
