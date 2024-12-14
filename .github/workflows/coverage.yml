@@ -1,0 +1,30 @@
+name: 'Check Coverage 🧪'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  coverage:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage      
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          prnumber: ${{ steps.findPr.outputs.number }}
+          output: comment, report-markdown
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+            message: ${{ steps.coverage.outputs.report }}
