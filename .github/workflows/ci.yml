@@ -43,6 +43,11 @@ jobs:
       - name: Run Unit Tests
         run: npx nx affected --target=test --parallel --code-coverage
 
+      - name: Upload Coverage to Coveralls
+        uses: coverallsapp/github-action@v2.3.4
+        with:
+          coverage-file: ./coverage/lcov-report/lcov-report/index.html  # Path to LCOV report
+
       # Run Lint for Affected Projects
       - name: Run Lint
         run: npx nx affected --target=lint --parallel
