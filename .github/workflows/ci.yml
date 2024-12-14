@@ -41,11 +41,13 @@ jobs:
 
       # Run Unit Tests for Affected Projects
       - name: Run Unit Tests
-        run: npx nx affected --target=test --parallel --code-coverage
+        run: npm test -- --coverage
         continue-on-error: true
 
       - name: Upload Coverage to Coveralls
         uses: coverallsapp/github-action@v2.3.4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Run Lint for Affected Projects
       - name: Run Lint
