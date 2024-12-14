@@ -1,25 +1,29 @@
 name: 'coverage'
+
 on:
-    push:
-        branches:
-            - master
-            - main
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-    coverage:
-        permissions:
-            checks: write
-            pull-requests: write
-            contents: write
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v1
-            - uses: jwalton/gh-find-current-pr@v1
-                id: findPr
-            - uses: ArtiomTr/jest-coverage-report-action@v2
-                with:
-                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                   prnumber: ${{ steps.findPr.outputs.number }}
-                   output: report-markdown
-            - uses: marocchino/sticky-pull-request-comment@v2
-              with:
-                  message: ${{ steps.coverage.outputs.report }}
+  coverage:
+    permissions:
+      checks: write
+      pull-requests: write
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: jwalton/gh-find-current-pr@v1
+        id: findPr
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        with:
+           github-token: ${{ secrets.GITHUB_TOKEN }}
+           prnumber: ${{ steps.findPr.outputs.number }}
+           output: report-markdown
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+            message: ${{ steps.coverage.outputs.report }}
