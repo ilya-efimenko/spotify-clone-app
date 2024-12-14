@@ -11,6 +11,5 @@ import { PlayerStore } from '../features/player/store';
   imports: [CommonModule, HeaderComponent, SidenavComponent, PlayerComponent],
   providers: [PlayerStore],
   templateUrl: './shell.component.html',
-  styleUrl: './shell.component.scss',
 })
 export class ShellComponent {}

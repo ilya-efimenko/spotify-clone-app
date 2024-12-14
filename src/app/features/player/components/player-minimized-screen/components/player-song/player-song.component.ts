@@ -7,7 +7,6 @@ import { Song } from '../../../../store';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './player-song.component.html',
-  styleUrl: './player-song.component.scss',
 })
 export class PlayerSongComponent {
   song = input<Song | null>();

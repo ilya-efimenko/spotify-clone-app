@@ -6,6 +6,5 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './search.component.html',
-  styleUrl: './search.component.scss',
 })
 export class SearchComponent {}

@@ -11,7 +11,6 @@ import { PlayerMinimizedScreenComponent } from './components/player-minimized-sc
   imports: [CommonModule, PlayerFullScreenComponent, PlayerMinimizedScreenComponent],
   providers: [PlayerStore],
   templateUrl: './player.component.html',
-  styleUrl: './player.component.scss',
 })
 export class PlayerComponent implements OnInit {
   public get screenMode$(): Observable<ScreenMode> {

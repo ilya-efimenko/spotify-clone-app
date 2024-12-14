@@ -12,12 +12,15 @@ interface Album {
 export interface ArtistResponse {
   id: string;
   name: string;
-  images: Image[]
+  images: Image[];
 }
 
 interface Song {
   album: Album;
   artists: ArtistResponse[];
+  /**
+   * @deprecated Spotify API does not provide this prop due to the policy
+   */
   preview_url: string;
 }
 

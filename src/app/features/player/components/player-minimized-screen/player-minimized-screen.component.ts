@@ -9,7 +9,6 @@ import { first, Observable } from 'rxjs';
   standalone: true,
   imports: [CommonModule, PlayerSongComponent],
   templateUrl: './player-minimized-screen.component.html',
-  styleUrl: './player-minimized-screen.component.scss',
 })
 export class PlayerMinimizedScreenComponent {
   public readonly SongAction = SongAction;
@@ -30,7 +29,7 @@ export class PlayerMinimizedScreenComponent {
   }
 
   public onPlayTrack(): void {
-    this.song$.pipe(first()).subscribe(song => {
+    this.song$.pipe(first()).subscribe((song) => {
       if (this.audio) {
         this.audio.play();
       } else {
