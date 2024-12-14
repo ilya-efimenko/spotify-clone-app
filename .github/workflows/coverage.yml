@@ -1,10 +1,6 @@
 name: 'Check Coverage 🧪'
 
 on:
-  workflow_run:
-    workflows: ['Verify build 🚀']
-    types:
-      - completed
   push:
     branches:
       - main
