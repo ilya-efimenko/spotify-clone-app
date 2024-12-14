@@ -20,10 +20,11 @@ jobs:
       - uses: jwalton/gh-find-current-pr@v1
         id: findPr
       - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage      
         with:
-           github-token: ${{ secrets.GITHUB_TOKEN }}
-           prnumber: ${{ steps.findPr.outputs.number }}
-           output: report-markdown
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          prnumber: ${{ steps.findPr.outputs.number }}
+          output: comment, report-markdown
       - uses: marocchino/sticky-pull-request-comment@v2
         with:
             message: ${{ steps.coverage.outputs.report }}
