@@ -1,21 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
+import { render } from '@testing-library/angular';
 
-describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HeaderComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+describe(HeaderComponent.name, () => {
+  it('should create', async () => {
+    expect(await render(HeaderComponent)).toBeTruthy();
   });
 });

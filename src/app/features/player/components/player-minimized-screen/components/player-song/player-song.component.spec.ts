@@ -1,21 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlayerSongComponent } from './player-song.component';
+import { render } from '@testing-library/angular';
 
-describe('PlayerSongComponent', () => {
-  let component: PlayerSongComponent;
-  let fixture: ComponentFixture<PlayerSongComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PlayerSongComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(PlayerSongComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+describe(PlayerSongComponent.name, () => {
+  it('should create', async () => {
+    expect(await render(PlayerSongComponent, {})).toBeTruthy();
   });
 });
