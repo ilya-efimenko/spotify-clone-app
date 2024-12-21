@@ -1,21 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlayerComponent } from './player.component';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('PlayerComponent', () => {
-  let component: PlayerComponent;
-  let fixture: ComponentFixture<PlayerComponent>;
+import { render } from '@testing-library/angular';
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PlayerComponent],
-    }).compileComponents();
+describe(PlayerComponent.name, () => {
+  const renderOptions = {
+    providers: [provideHttpClient()],
+  };
 
-    fixture = TestBed.createComponent(PlayerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(await render(PlayerComponent, renderOptions)).toBeTruthy();
   });
 });

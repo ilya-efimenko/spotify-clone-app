@@ -1,21 +1,14 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShellComponent } from './shell.component';
+import { render } from '@testing-library/angular';
+import { ApiService } from './services/api/api.service';
+import { provideHttpClient } from '@angular/common/http';
 
-describe('ShellComponent', () => {
-  let component: ShellComponent;
-  let fixture: ComponentFixture<ShellComponent>;
+describe(ShellComponent.name, () => {
+  const renderOptions = {
+    providers: [ApiService, provideHttpClient()],
+  };
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShellComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ShellComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should create', async () => {
+    expect(await render(ShellComponent, renderOptions)).toBeTruthy();
   });
 });

@@ -1,27 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule } from '@angular/router';
 
-describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterModule.forRoot([])],
-    }).compileComponents();
-  });
+import { render } from '@testing-library/angular';
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome spotify-clone-app'
-    );
-  });
+describe(AppComponent.name, () => {
+  const renderOptions = {
+    imports: [RouterModule.forRoot([])],
+    providers: [provideHttpClient()],
+  };
 
-  it('should have as title \'spotify-clone-app\'', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('spotify-clone-app');
+  it('should create', async () => {
+    expect(await render(AppComponent, renderOptions)).toBeTruthy();
   });
 });
