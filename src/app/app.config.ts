@@ -4,11 +4,18 @@ import { appRoutes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { accessTokenInterceptor } from './core/interceptors/access-token.interceptor';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { reducers } from './core/store/reducers';
+import { TrackEffects } from './core/store/track/track.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(appRoutes), provideAnimationsAsync(),
+    provideRouter(appRoutes),
+    provideAnimationsAsync(),
     provideHttpClient(withInterceptors([accessTokenInterceptor])),
+    provideStore(reducers),
+    provideEffects([TrackEffects]),
   ],
 };
