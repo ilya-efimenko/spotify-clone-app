@@ -1,4 +1,4 @@
-<div class="playing-now-sidebar overflow-auto max-h-[calc(100%-80px)]">
+<div class="playing-now-sidebar">
   <section class="playing-now-sidebar__song-section mb-4">
     <img
       width="300"
@@ -10,11 +10,17 @@
     <div class="text-left max-w-72">
       <a href="#" class="text-xl text-white block">{{ (track$ | async)?.name ? (track$ | async)?.name : 'Unknown' }}</a>
       <a href="#" class="text-xs text-gray-400 block">{{
-        (track$ | async)?.artistName ? (track$ | async)?.artistName : 'Unknown'
+        (track$ | async)?.artist?.fullName ? (track$ | async)?.artist?.fullName : 'Unknown'
       }}</a>
     </div>
   </section>
-  <section class="playing-now-sidebar__artist-section w-70 h-36 rounded-md bg-zinc-800 mb-4"></section>
+  <section class="playing-now-sidebar__artist-section w-70 h-36 rounded-md bg-zinc-800 mb-4">
+    <div class="playing-now-sidebar__artist-section__artist-image"></div>
+    <div class="playing-now-sidebar__artist-section__artist-bio">
+      <h3 class="text-sm text-white">{{ (artist$ | async)?.name }}</h3>
+    </div>
+    <!-- TBD -->
+  </section>
   <section class="playing-now-sidebar__credits-section w-70 h-36 rounded-md bg-zinc-800 mb-4"></section>
   <section class="playing-now-sidebar__next-in-queue w-70 h-24 rounded-md bg-zinc-800"></section>
 </div>

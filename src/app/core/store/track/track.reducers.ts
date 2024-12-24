@@ -8,7 +8,7 @@ export interface TrackState {
 
 export const initialState: TrackState = {
   activeTrack: {
-    artistName: '',
+    artist: { id: '', fullName: '' },
     name: '',
     image: '',
     url: '',

@@ -8,6 +8,7 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { reducers } from './core/store/reducers';
 import { TrackEffects } from './core/store/track/track.effects';
+import { ArtistEffects } from './core/store/artist/artist.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([accessTokenInterceptor])),
     provideStore(reducers),
-    provideEffects([TrackEffects]),
+    provideEffects([TrackEffects, ArtistEffects]),
   ],
 };
