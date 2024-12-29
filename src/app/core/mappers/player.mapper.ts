@@ -1,7 +1,6 @@
 import { PlayerResponse } from '../models/response.interface';
 
 export const mapResponse = (response: PlayerResponse) => {
-  console.log(response);
   const {
     item: { album, artists, preview_url: previewUrl },
   } = response;

@@ -21,7 +21,6 @@ export class ArtistEffects {
       concatLatestFrom(() => this.store.select(TrackSelectors.selectActiveTrackArtistId)),
       exhaustMap(([, artistId]) =>
         this.api.getRequest(`artists/${artistId}`).pipe(
-          tap((response) => console.log(response)),
           map((response) => ArtistActions.fetchArtistByIdSuccess({ artist: response as Artist })),
           catchError(() => EMPTY)
         )
