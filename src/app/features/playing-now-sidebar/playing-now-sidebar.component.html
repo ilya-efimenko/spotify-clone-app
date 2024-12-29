@@ -3,7 +3,11 @@
     <span class="playing-now-sidebar__header__active-track text-md text-white">{{
       (track$ | async)?.name ? (track$ | async)?.name : 'Unknown'
     }}</span>
-    <button class="playing-now-sidebar__header__close-btn group hover:scale-105" (click)="onCloseSidebar()">
+    <button
+      class="playing-now-sidebar__header__close-btn group hover:scale-105"
+      data-testid="close-btn"
+      (click)="onCloseSidebar()"
+    >
       <svg
         class="w-4 group-hover:fill-white"
         data-encore-id="icon"
