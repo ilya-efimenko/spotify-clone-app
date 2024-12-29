@@ -1,4 +1,23 @@
 <div class="playing-now-sidebar">
+  <header class="playing-now-sidebar__header flex justify-between pb-4">
+    <span class="playing-now-sidebar__header__active-track text-md text-white">{{
+      (track$ | async)?.name ? (track$ | async)?.name : 'Unknown'
+    }}</span>
+    <button class="playing-now-sidebar__header__close-btn group hover:scale-105" (click)="onCloseSidebar()">
+      <svg
+        class="w-4 group-hover:fill-white"
+        data-encore-id="icon"
+        role="img"
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+        fill="#b3b3b3"
+      >
+        <path
+          d="M2.47 2.47a.75.75 0 0 1 1.06 0L8 6.94l4.47-4.47a.75.75 0 1 1 1.06 1.06L9.06 8l4.47 4.47a.75.75 0 1 1-1.06 1.06L8 9.06l-4.47 4.47a.75.75 0 0 1-1.06-1.06L6.94 8 2.47 3.53a.75.75 0 0 1 0-1.06Z"
+        ></path>
+      </svg>
+    </button>
+  </header>
   <section class="playing-now-sidebar__song-section mb-4">
     <img
       width="300"
@@ -14,13 +33,20 @@
       }}</a>
     </div>
   </section>
-  <section class="playing-now-sidebar__artist-section w-70 h-36 rounded-md bg-zinc-800 mb-4">
-    <div class="playing-now-sidebar__artist-section__artist-image"></div>
-    <div class="playing-now-sidebar__artist-section__artist-bio">
-      <h3 class="text-sm text-white">{{ (artist$ | async)?.name }}</h3>
+  <section class="playing-now-sidebar__artist-section w-70 h-full rounded-md bg-zinc-800 mb-4">
+    <div
+      class="playing-now-sidebar__artist-section__artist-image bg-cover bg-center min-h-[300px] rounded-t-md p-4"
+      [ngStyle]="{
+        'background-image': 
+          'linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 50%), url(' + ((artist$ | async)?.images?.[0]?.url || '') + ')'
+        }"
+    >
+      <h2 class="text-md text-white">About the artist</h2>
     </div>
-    <!-- TBD -->
+    <div class="playing-now-sidebar__artist-section__artist-bio p-4 max-w-72">
+      <h3 class="text-md text-white mb-0.5">{{ (artist$ | async)?.name }}</h3>
+      <p class="text-xs text-gray-400 mb-4">{{ (artist$ | async)?.followers?.total || '-' }} followers</p>
+      <p class="text-xs text-gray-400">Artist genres: {{ (artist$ | async)?.genres?.join(', ') || '-' }}</p>
+    </div>
   </section>
-  <section class="playing-now-sidebar__credits-section w-70 h-36 rounded-md bg-zinc-800 mb-4"></section>
-  <section class="playing-now-sidebar__next-in-queue w-70 h-24 rounded-md bg-zinc-800"></section>
 </div>

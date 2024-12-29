@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PlayerStore, ScreenMode, SongAction } from '../../store';
 import { PlayerSongComponent } from './components/player-song/player-song.component';
 import { first, Observable } from 'rxjs';
-import { selectActiveTrack } from '../../../../core/store/track/track.selectors';
+import { selectActiveTrack, selectIsShowingSidebar } from '../../../../core/store/track/track.selectors';
+import * as TrackActions from '../../../../core/store/track/track.actions';
 import { Store } from '@ngrx/store';
 import { Track } from '../../../../core/models/track.interface';
 
@@ -20,6 +21,10 @@ export class PlayerMinimizedScreenComponent {
     return this.store.select(selectActiveTrack);
   }
 
+  public get showSidebar$(): Observable<boolean> {
+    return this.store.select(selectIsShowingSidebar);
+  }
+
   public get songAction$(): Observable<SongAction> {
     return this.playerStore.songAction$;
   }
@@ -28,7 +33,7 @@ export class PlayerMinimizedScreenComponent {
   private readonly playerStore = inject(PlayerStore);
   private audio!: HTMLAudioElement;
 
-  public setFullScreen(): void {
+  public onSetFullScreen(): void {
     this.playerStore.updateScreenMode(ScreenMode.FULL);
   }
 
@@ -47,5 +52,9 @@ export class PlayerMinimizedScreenComponent {
   public onPauseTrack(): void {
     this.audio.pause();
     this.playerStore.updateSongAction(SongAction.PLAY);
+  }
+
+  public onToggleSidebar(showSidebar: boolean): void {
+    this.store.dispatch(TrackActions.toggleSidebar({ showSidebar }));
   }
 }

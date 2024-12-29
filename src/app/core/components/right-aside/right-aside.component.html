@@ -1,10 +1,8 @@
-<div class="right-aside bg-zinc-900 w-full rounded-md relative">
-  <header class="right-aside__header p-3">
-    <h3 class="text-sm text-white">Chill</h3>
-  </header>
-
-  <div class="right-aside__content p-3 h-full overflow-auto max-h-[calc(100vh-200px)]">
-    <!-- COMPONENTS -->
-    <app-playing-now-sidebar></app-playing-now-sidebar>
+<ng-container *ngIf="showSidebar$ | async">
+  <div class="right-aside bg-zinc-900 w-full rounded-md relative">
+    <div class="right-aside__content p-5 h-full overflow-auto max-h-[calc(100vh-150px)]">
+      <!-- COMPONENTS -->
+      <app-playing-now-sidebar></app-playing-now-sidebar>
+    </div>
   </div>
-</div>
+</ng-container>

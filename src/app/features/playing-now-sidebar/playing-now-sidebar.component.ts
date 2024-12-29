@@ -6,6 +6,7 @@ import { selectActiveTrack } from '../../core/store/track/track.selectors';
 import { Track } from '../../core/models/track.interface';
 import { selectArtist } from '../../core/store/artist/artist.selectors';
 import { Artist } from '../../core/models/artist.interface';
+import * as TrackActions from '../../core/store/track/track.actions';
 
 @Component({
   selector: 'app-playing-now-sidebar',
@@ -23,4 +24,8 @@ export class PlayingNowSidebarComponent {
   }
 
   private readonly store = inject(Store);
+
+  public onCloseSidebar(): void {
+    this.store.dispatch(TrackActions.toggleSidebar({ showSidebar: false }));
+  }
 }
