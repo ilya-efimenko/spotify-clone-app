@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, EMPTY, exhaustMap, map, tap } from 'rxjs';
+import { catchError, EMPTY, exhaustMap, map } from 'rxjs';
 import { concatLatestFrom } from '@ngrx/operators';
 import { ApiService } from '../../services/api/api.service';
 import * as ArtistActions from './artist.actions';

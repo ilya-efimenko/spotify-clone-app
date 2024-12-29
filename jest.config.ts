@@ -3,6 +3,7 @@ export default {
   preset: './jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   coverageDirectory: './coverage/spotify-clone-app',
+  coverageReporters: ['json', 'lcov', 'text', 'clover'],
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',
