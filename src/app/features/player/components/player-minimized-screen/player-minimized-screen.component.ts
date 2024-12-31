@@ -1,8 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlayerStore, ScreenMode, Song, SongAction } from '../../store';
+import { PlayerStore, ScreenMode, SongAction } from '../../store';
 import { PlayerSongComponent } from './components/player-song/player-song.component';
 import { first, Observable } from 'rxjs';
+import { selectActiveTrack, selectIsShowingSidebar } from '../../../../core/store/track/track.selectors';
+import * as TrackActions from '../../../../core/store/track/track.actions';
+import { Store } from '@ngrx/store';
+import { Track } from '../../../../core/models/track.interface';
 
 @Component({
   selector: 'app-player-minimized-screen',
@@ -13,35 +17,44 @@ import { first, Observable } from 'rxjs';
 export class PlayerMinimizedScreenComponent {
   public readonly SongAction = SongAction;
 
-  public get song$(): Observable<Song> {
-    return this.store.song$;
+  public get track$(): Observable<Track> {
+    return this.store.select(selectActiveTrack);
+  }
+
+  public get showSidebar$(): Observable<boolean> {
+    return this.store.select(selectIsShowingSidebar);
   }
 
   public get songAction$(): Observable<SongAction> {
-    return this.store.songAction$;
+    return this.playerStore.songAction$;
   }
 
-  private readonly store = inject(PlayerStore);
+  private readonly store = inject(Store);
+  private readonly playerStore = inject(PlayerStore);
   private audio!: HTMLAudioElement;
 
-  public setFullScreen(): void {
-    this.store.updateScreenMode(ScreenMode.FULL);
+  public onSetFullScreen(): void {
+    this.playerStore.updateScreenMode(ScreenMode.FULL);
   }
 
   public onPlayTrack(): void {
-    this.song$.pipe(first()).subscribe((song) => {
+    this.track$.pipe(first()).subscribe((track) => {
       if (this.audio) {
         this.audio.play();
       } else {
-        this.audio = new Audio(song.url);
+        this.audio = new Audio(track.url);
         this.audio.play();
       }
-      this.store.updateSongAction(SongAction.PAUSE);
+      this.playerStore.updateSongAction(SongAction.PAUSE);
     });
   }
 
   public onPauseTrack(): void {
     this.audio.pause();
-    this.store.updateSongAction(SongAction.PLAY);
+    this.playerStore.updateSongAction(SongAction.PLAY);
+  }
+
+  public onToggleSidebar(showSidebar: boolean): void {
+    this.store.dispatch(TrackActions.toggleSidebar({ showSidebar }));
   }
 }

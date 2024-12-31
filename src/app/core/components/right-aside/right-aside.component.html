@@ -1,0 +1,8 @@
+<ng-container *ngIf="showSidebar$ | async">
+  <div class="right-aside bg-zinc-900 w-full rounded-md relative" data-testid="right-aside-container">
+    <div class="right-aside__content p-5 h-full overflow-auto max-h-[calc(100vh-150px)]">
+      <!-- COMPONENTS -->
+      <app-playing-now-sidebar></app-playing-now-sidebar>
+    </div>
+  </div>
+</ng-container>

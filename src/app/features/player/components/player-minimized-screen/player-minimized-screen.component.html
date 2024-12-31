@@ -1,6 +1,9 @@
-<div #fullscreenElement class="player-minimized-screen grid grid-cols-3 fixed bottom-0 h-20 p-4 w-full items-center">
+<div
+  #fullscreenElement
+  class="player-minimized-screen bg-black grid grid-cols-3 fixed bottom-0 h-20 p-4 w-full items-center"
+>
   <div class="player-minimized-screen__song-display flex items-center">
-    <app-player-song [song]="song$ | async"></app-player-song>
+    <app-player-song [song]="track$ | async"></app-player-song>
   </div>
   <div class="player-minimized-screen__track-interaction-button-list flex justify-center gap-4">
     <button class="player-minimized-screen__track-interaction-button-list--prev p-2 group hover:scale-105">
@@ -57,9 +60,50 @@
     </button>
   </div>
   <div class="player-minimized-screen__action-button-list flex justify-end">
+    @if (showSidebar$ | async) {
+    <button
+      class="player-minimized-screen__action-button-list--open-sidebar p-2 group hover:scale-105 relative"
+      (click)="onToggleSidebar(false)"
+    >
+      <svg
+        class="w-4 group-hover:fill-spotify-green"
+        data-encore-id="icon"
+        role="img"
+        fill="#1ED760"
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+      >
+        <path d="M11.196 8 6 5v6l5.196-3z"></path>
+        <path
+          d="M15.002 1.75A1.75 1.75 0 0 0 13.252 0h-10.5a1.75 1.75 0 0 0-1.75 1.75v12.5c0 .966.783 1.75 1.75 1.75h10.5a1.75 1.75 0 0 0 1.75-1.75V1.75zm-1.75-.25a.25.25 0 0 1 .25.25v12.5a.25.25 0 0 1-.25.25h-10.5a.25.25 0 0 1-.25-.25V1.75a.25.25 0 0 1 .25-.25h10.5z"
+        ></path>
+      </svg>
+      <span class="w-1 h-1 bg-spotify-green rounded-full block absolute bottom-0 left-[14px]"></span>
+    </button>
+    } @else {
+    <button
+      class="player-minimized-screen__action-button-list--open-sidebar p-2 group hover:scale-105"
+      (click)="onToggleSidebar(true)"
+    >
+      <svg
+        class="w-4 group-hover:fill-white"
+        data-encore-id="icon"
+        role="img"
+        fill="#b3b3b3"
+        aria-hidden="true"
+        viewBox="0 0 16 16"
+      >
+        <path d="M11.196 8 6 5v6l5.196-3z"></path>
+        <path
+          d="M15.002 1.75A1.75 1.75 0 0 0 13.252 0h-10.5a1.75 1.75 0 0 0-1.75 1.75v12.5c0 .966.783 1.75 1.75 1.75h10.5a1.75 1.75 0 0 0 1.75-1.75V1.75zm-1.75-.25a.25.25 0 0 1 .25.25v12.5a.25.25 0 0 1-.25.25h-10.5a.25.25 0 0 1-.25-.25V1.75a.25.25 0 0 1 .25-.25h10.5z"
+        ></path>
+      </svg>
+    </button>
+    }
+
     <button
       class="player-minimized-screen__action-button-list--to-full-screen p-2 group hover:scale-105"
-      (click)="setFullScreen()"
+      (click)="onSetFullScreen()"
     >
       <svg
         class="w-4 group-hover:fill-white"

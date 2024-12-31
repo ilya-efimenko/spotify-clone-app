@@ -6,10 +6,10 @@ export const mapResponse = (response: PlayerResponse) => {
   } = response;
 
   const artistName = artists.map((artist) => artist.name).join(', ');
-  const image = album.images?.find((img) => img.height === 64)?.url || '';
+  const image = album.images?.find((img) => img.height === 640)?.url || '';
 
   return {
-    artistName,
+    artist: { id: artists[0].id ?? '', fullName: artistName },
     name: album.name,
     image,
     url: previewUrl,

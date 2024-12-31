@@ -8,6 +8,7 @@ module.exports = {
       },
       colors: {
         'black-rgba': 'rgba(0, 0, 0, 0.5)',
+        'spotify-green': '#1ED760',
       },
     },
   },
