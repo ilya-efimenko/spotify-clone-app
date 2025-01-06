@@ -1,0 +1,29 @@
+<div class="player-progress flex justify-between items-center">
+  <span class="player-progress__time-passed text-xs text-gray-400">{{ progress()?.progressMs | date : 'm:ss' }}</span>
+  <div
+    class="player-progress__progress-line group relative w-full flex items-center rounded-md h-1 bg-gray-400 mr-2 ml-2 cursor-pointer"
+    tabindex="0"
+    (click)="onProgressLineClick($event)"
+    (keydown.enter)="onProgressLineClick($event)"
+  >
+    <!-- w-full per time progress -->
+    <span
+      class="h-1 rounded-md group-hover:bg-spotify-green"
+      [style.width]="dragPosition.x + 'px'"
+      [ngClass]="isMoving ? 'bg-spotify-green' : 'bg-white'"
+    >
+    </span>
+
+    <span
+      cdkDrag
+      cdkDragLockAxis="x"
+      cdkDragBoundary=".player-progress__progress-line"
+      class="w-3 h-3 bg-white rounded-full absolute shadow-md shadow-black invisible group-hover:visible group-active:visible"
+      [cdkDragFreeDragPosition]="dragPosition"
+      (cdkDragMoved)="onDragMove($event)"
+      (cdkDragEnded)="onDragEnd()"
+    >
+    </span>
+  </div>
+  <span class="player-progress__total-time text-xs text-gray-400">{{ progress()?.durationMs | date : 'm:ss' }}</span>
+</div>

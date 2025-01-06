@@ -17,9 +17,13 @@ export const initialState: TrackState = {
     name: '',
     image: '',
     url: '',
+    progress: {
+      progressMs: 0,
+      durationMs: 0,
+    },
   },
   ui: {
-    showSidebar: false,
+    showSidebar: true,
   },
 };
 

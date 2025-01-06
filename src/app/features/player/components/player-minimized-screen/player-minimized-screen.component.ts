@@ -7,11 +7,12 @@ import { selectActiveTrack, selectIsShowingSidebar } from '../../../../core/stor
 import * as TrackActions from '../../../../core/store/track/track.actions';
 import { Store } from '@ngrx/store';
 import { Track } from '../../../../core/models/track.interface';
+import { PlayerProgressComponent } from './components/player-progress/player-progress.component';
 
 @Component({
   selector: 'app-player-minimized-screen',
   standalone: true,
-  imports: [CommonModule, PlayerSongComponent],
+  imports: [CommonModule, PlayerSongComponent, PlayerProgressComponent],
   templateUrl: './player-minimized-screen.component.html',
 })
 export class PlayerMinimizedScreenComponent {

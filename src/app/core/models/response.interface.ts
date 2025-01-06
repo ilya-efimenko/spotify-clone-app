@@ -18,8 +18,10 @@ interface Song {
    * @deprecated Spotify API does not provide this prop due to the policy
    */
   preview_url: string;
+  duration_ms: number;
 }
 
 export interface PlayerResponse {
   item: Song;
+  progress_ms: number;
 }

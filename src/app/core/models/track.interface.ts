@@ -3,4 +3,8 @@ export interface Track {
   name: string;
   image: string;
   url: string;
+  progress: {
+    progressMs: number;
+    durationMs: number;
+  };
 }
