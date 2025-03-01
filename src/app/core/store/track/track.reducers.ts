@@ -13,9 +13,9 @@ export interface TrackState {
 
 export const initialState: TrackState = {
   activeTrack: {
-    artist: { id: '', fullName: '' },
-    name: '',
-    image: '',
+    artist: { id: '', fullName: 'Unknown' },
+    name: 'Unknown',
+    image: 'assets/empty-song-placeholder.jpg',
     url: '',
     progress: {
       progressMs: 0,
