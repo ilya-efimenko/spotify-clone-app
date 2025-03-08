@@ -87,6 +87,7 @@ export class PlayerProgressComponent implements OnChanges {
     }
   }
 
+  // TBD set accurate values
   private toProgressMs(): number {
     return Math.min(
       (this.dragPosition.x / this.maxOffsetX) * (this.progress()?.durationMs ?? 0),
