@@ -1,7 +1,7 @@
 <div class="playing-now-sidebar">
   <header class="playing-now-sidebar__header flex justify-between pb-4">
     <span class="playing-now-sidebar__header__active-track text-md text-white">{{
-      (track$ | async)?.name ? (track$ | async)?.name : 'Unknown'
+      track()?.name || initialTrack.name
     }}</span>
     <button
       class="playing-now-sidebar__header__close-btn group hover:scale-105"
@@ -23,17 +23,11 @@
     </button>
   </header>
   <section class="playing-now-sidebar__song-section mb-4">
-    <img
-      width="300"
-      height="300"
-      class="rounded-md mb-3"
-      [src]="(track$ | async)?.image ? (track$ | async)?.image : 'assets/empty-song-placeholder.jpg'"
-      alt=""
-    />
+    <img width="300" height="300" class="rounded-md mb-3" [src]="track()?.image || initialTrack.image" alt="" />
     <div class="text-left max-w-72">
-      <a href="#" class="text-xl text-white block">{{ (track$ | async)?.name ? (track$ | async)?.name : 'Unknown' }}</a>
+      <a href="#" class="text-xl text-white block">{{ track()?.name || initialTrack.name }}</a>
       <a href="#" class="text-xs text-gray-400 block">{{
-        (track$ | async)?.artist?.fullName ? (track$ | async)?.artist?.fullName : 'Unknown'
+        track()?.artist?.fullName || initialTrack.artist.fullName
       }}</a>
     </div>
   </section>
@@ -42,15 +36,15 @@
       class="playing-now-sidebar__artist-section__artist-image bg-cover bg-center min-h-[300px] rounded-t-md p-4"
       [ngStyle]="{
         'background-image': 
-          'linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 50%), url(' + ((artist$ | async)?.images?.[0]?.url || '') + ')'
+          'linear-gradient(rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0) 50%), url(' + (artist()?.images?.[0]?.url || '') + ')'
         }"
     >
       <h2 class="text-md text-white">About the artist</h2>
     </div>
     <div class="playing-now-sidebar__artist-section__artist-bio p-4 max-w-72">
-      <h3 class="text-md text-white mb-0.5">{{ (artist$ | async)?.name }}</h3>
-      <p class="text-xs text-gray-400 mb-4">{{ (artist$ | async)?.followers?.total || '-' }} followers</p>
-      <p class="text-xs text-gray-400">Artist genres: {{ (artist$ | async)?.genres?.join(', ') || '-' }}</p>
+      <h3 class="text-md text-white mb-0.5">{{ artist()?.name }}</h3>
+      <p class="text-xs text-gray-400 mb-4">{{ artist()?.followers?.total || '-' }} followers</p>
+      <p class="text-xs text-gray-400">Artist genres: {{ artist()?.genres?.join(', ') || '-' }}</p>
     </div>
   </section>
 </div>
